@@ -1,0 +1,17 @@
+deepspeed --num_gpus=2 run.py \
+    --model_name_or_path="/models/bloomz-1b1" \
+    --dataset_path="/ws/MY-LLaMA-Factory/dataset/train/exp/train.jsonl" \
+    --report_to="none" \
+    --deepspeed "./configs/ds_z1.json" \
+    --finetuning_type="full" \
+    --learning_rate=1.41e-5 \
+    --per_device_train_batch_size=1 \
+    --gradient_accumulation_steps=1 \
+    --output_dir="sft_openassistant-guanaco" \
+    --logging_steps=1 \
+    --num_train_epochs=3 \
+    --max_samples=100 \
+    --max_steps=-1 \
+    --gradient_checkpointing \
+    --bf16 \
+    --do_train
