@@ -5,12 +5,7 @@ prefix = "Below is an instruction that describes a task, paired with an input th
 
 rawTrainingDataFolder = "../train"
 processedTrainingDataFolder = "../../train"
-def typeCheck(inputs, targets):
-    if type(inputs) == list and len(inputs) == 1:
-        inputs = inputs[0]
-    if type(targets) == list and len(targets) == 1:
-        targets = targets[0]
-    return inputs, targets
+
 
 if __name__ == "__main__":
     absoluteRawTrainingDataFolder = os.path.abspath(rawTrainingDataFolder)
@@ -24,7 +19,7 @@ if __name__ == "__main__":
         output_dir = os.path.join(absoluteProcessedTrainingDataFolder, taskName)
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-        # For emdg and eSNLI
+        # For emdg and exp
         if taskName == "emdg" or taskName == "exp":
             files = os.listdir(datasetPath)
             for file in files:
@@ -37,7 +32,6 @@ if __name__ == "__main__":
                 trainData = json.load(f)
             content = []
             for inputs, targets in zip(trainData["src"], trainData["tgt"]):
-                inputs, targets = typeCheck(inputs, targets)
                 inputs = prefix + inputs
                 content.append({"prompt": inputs, "response": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "train.jsonl"), "w") as f:
@@ -48,14 +42,13 @@ if __name__ == "__main__":
                 testData = json.load(f)
             content = []
             for inputs, targets in zip(testData["src"], testData["tgt"]):
-                inputs, targets = typeCheck(inputs, targets)
                 inputs = prefix + inputs
-                content.append({"prompt": inputs, "response": targets})
+                content.append({"prompt": inputs, "reference": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")
             
-        # For  eli5 and wiki_auto
+        # For inqqg and simp
         elif taskName == "inqqg" or taskName == "simp":
             files = os.listdir(datasetPath)
             trainFiles = []
@@ -69,7 +62,6 @@ if __name__ == "__main__":
                 with open(os.path.join(datasetPath, trainFile)) as f:
                     trainData = json.load(f)
                 for inputs, targets in zip(trainData["src"], trainData["tgt"]):
-                    inputs, targets = typeCheck(inputs, targets)
                     inputs = prefix + inputs
                     content.append({"prompt": inputs, "response": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "train.jsonl"), "w") as f:
@@ -80,14 +72,13 @@ if __name__ == "__main__":
                 testData = json.load(f)
             content = []
             for inputs, targets in zip(testData["src"], testData["tgt"]):
-                inputs, targets = typeCheck(inputs, targets)
                 inputs = prefix + inputs
-                content.append({"prompt": inputs, "response": targets})
+                content.append({"prompt": inputs, "reference": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")
             
-        # For gigaword
+        # For hgen
         elif taskName == "hgen":
             files = os.listdir(datasetPath)
             trainFiles = []
@@ -102,7 +93,6 @@ if __name__ == "__main__":
                 with open(os.path.join(datasetPath, trainFile)) as f:
                     trainData = json.load(f)
                 for inputs, targets in zip(trainData["src"], trainData["tgt"]):
-                    inputs, targets = typeCheck(inputs, targets)
                     inputs = prefix + inputs
                     content.append({"prompt": inputs, "response": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "train.jsonl"), "w") as f:
@@ -114,9 +104,8 @@ if __name__ == "__main__":
                 with open(os.path.join(datasetPath, testFile)) as f:
                     testData = json.load(f)
                 for inputs, targets in zip(testData["src"], testData["tgt"]):
-                    inputs, targets = typeCheck(inputs, targets)
                     inputs = prefix + inputs
-                    content.append({"prompt": inputs, "response": targets})
+                    content.append({"prompt": inputs, "reference": targets})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")

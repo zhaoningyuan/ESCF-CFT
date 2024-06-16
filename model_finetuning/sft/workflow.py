@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, List, Optional
 
-from transformers import DataCollatorForSeq2Seq
+from ..data.data_collator import CustomDataCollatorForSeq2Seq
 
 from ..data.loader import get_dataset
 from ..data.utils import split_dataset
@@ -37,7 +37,7 @@ def run_sft(
     if getattr(model, "is_quantized", False) and not training_args.do_train:
         setattr(model, "_hf_peft_config_loaded", True)  # hack here: make model compatible with prediction
 
-    data_collator = DataCollatorForSeq2Seq(
+    data_collator = CustomDataCollatorForSeq2Seq(
         tokenizer=tokenizer,
         pad_to_multiple_of=8 if tokenizer.padding_side == "right" else None,  # for shift short attention
         label_pad_token_id=IGNORE_INDEX if data_args.ignore_pad_token_for_loss else tokenizer.pad_token_id,

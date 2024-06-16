@@ -164,7 +164,7 @@ cython_debug/
 # custom ignore
 wandb/
 /dataset/*
-/fineturned_model/*
+/finetuned_models/*
 
 !.gitkeep
 !/dataset/rawdata/
