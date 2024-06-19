@@ -165,6 +165,9 @@ cython_debug/
 wandb/
 /dataset/*
 /finetuned_models/*
+/results/*
+# test my script
+/test.py
 
 !.gitkeep
 !/dataset/rawdata/

@@ -28,9 +28,13 @@ bash scripts/train-on-5-instruction-task.sh
 ## eval model on instruction tasks
 generate answer with base model and tuned model
 ```shell
-bash scripts/generate-instruction-task-on-base-model.sh
-bash scripts/generate-instruction-task-on-tuned-model.sh
+bash scripts/generate-pred-result.sh
 ```
 
-evaluate scores
+evaluate scores  
+``` shell
+bash scripts/evaluate.sh
+```
+
+## eval model on knowlage tasks
 TODO

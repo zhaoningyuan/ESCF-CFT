@@ -41,9 +41,9 @@ if __name__ == "__main__":
             with open(os.path.join(datasetPath, testFile)) as f:
                 testData = json.load(f)
             content = []
-            for inputs, targets in zip(testData["src"], testData["tgt"]):
+            for inputs, targets, info in zip(testData["src"], testData["tgt"], testData["src_info"]):
                 inputs = prefix + inputs
-                content.append({"prompt": inputs, "reference": targets})
+                content.append({"prompt": inputs, "reference": targets, "info": info})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")
@@ -71,9 +71,9 @@ if __name__ == "__main__":
             with open(os.path.join(datasetPath, testFile)) as f:
                 testData = json.load(f)
             content = []
-            for inputs, targets in zip(testData["src"], testData["tgt"]):
+            for inputs, targets, info in zip(testData["src"], testData["tgt"], testData["src_info"]):
                 inputs = prefix + inputs
-                content.append({"prompt": inputs, "reference": targets})
+                content.append({"prompt": inputs, "reference": targets, "info": info})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")
@@ -103,9 +103,9 @@ if __name__ == "__main__":
             for testFile in testFiles:
                 with open(os.path.join(datasetPath, testFile)) as f:
                     testData = json.load(f)
-                for inputs, targets in zip(testData["src"], testData["tgt"]):
+                for inputs, targets, info in zip(testData["src"], testData["tgt"], testData["src_info"]):
                     inputs = prefix + inputs
-                    content.append({"prompt": inputs, "reference": targets})
+                    content.append({"prompt": inputs, "reference": targets, "info": info})
             with open(os.path.join(absoluteProcessedTrainingDataFolder, taskName, "test.jsonl"), "w") as f:
                 for line in content:
                     f.write(json.dumps(line) + "\n")

@@ -29,11 +29,15 @@ def preprocess_supervised_dataset(
     label_column: str = "response",
 ) -> Dict[str, List[List[int]]]:
     assert text_column in examples, f"Column {text_column} not found in the dataset."
+
     model_inputs = {"input_ids": [], "attention_mask": [], }
      
     if label_column in examples:
         model_inputs.update({"labels": []})
         for text, label in zip(examples[text_column], examples[label_column]):
+            # if label is a list, take the first one
+            if isinstance(label, list):
+                label = label[0]
             input_ids = tokenizer.encode(text, add_special_tokens=False)
             labels = tokenizer.encode(label, add_special_tokens=False)
             max_source_len, max_target_len = infer_max_len(len(input_ids), len(labels), data_args.cutoff_len)
