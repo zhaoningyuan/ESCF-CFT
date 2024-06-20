@@ -49,8 +49,10 @@ for ref, pred in zip(refs, preds):
     pred_sentences.append(pred[opt.pred_column])
 
 if opt.metric.lower() == "bleu" or opt.metric.lower() == "sari":
-    # bleu and meteor need multiple references
-    ref_sentences = [[ref] for ref in ref_sentences]
+    if type(ref_sentences[0]) != list:
+        # bleu and meteor need multiple references
+        ref_sentences = [[ref] for ref in ref_sentences]
+    assert type(ref_sentences[0][0]) == str, "multiple references needed"
 # get evaluation result
 if opt.metric.lower() == "sari":
     # sari need multiple references
