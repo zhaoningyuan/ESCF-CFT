@@ -38,6 +38,16 @@ bash scripts/evaluate-on-instruction-tasks.sh
 ```
 
 ## Evaluate model on general tasks
+Use [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) to evaluate general tasks scores
+
+### Install
+To install the `lm-eval` package from the github repository, run:
+```shell
+git clone https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e .
+```
+### Evaluate
 There are 3 sub-tasks in general tasks:
 - Domain Knowledge
 - Reasoning
