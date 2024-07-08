@@ -1,8 +1,9 @@
 python run.py \
     --model_name_or_path="/models/bloomz-1b1" \
-    --dataset_path="/ws/MY-LLaMA-Factory/dataset/train/exp/train.jsonl" \
+    --quantization_bit 4 \
+    --dataset_path="./dataset/train/exp/train.jsonl" \
     --report_to="none" \
-    --finetuning_type="full" \
+    --finetuning_type="lora" \
     --learning_rate=1.41e-5 \
     --per_device_train_batch_size=1 \
     --per_device_eval_batch_size=1 \

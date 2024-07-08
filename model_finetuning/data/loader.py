@@ -34,8 +34,6 @@ def get_dataset(
                 load_from_cache_file=(not data_args.overwrite_cache) or (training_args.local_process_index != 0),
                 desc="Running tokenizer on dataset",
             )
-        print(dataset["prompt"])
-        print(dataset["reference"])
         dataset = dataset.map(preprocess_func, batched=True, remove_columns=column_names, **kwargs)
     return dataset
 

@@ -5,6 +5,7 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoModelForVision2Se
 from ..utils.logger import get_logger
 from ..utils.misc import count_parameters
 from .adapter import init_adapter
+from .model_utils.quantization import configure_quantization
 
 
 if TYPE_CHECKING:
@@ -79,6 +80,7 @@ def load_model(
     """
     init_kwargs = _get_init_kwargs(model_args)
     config = load_config(model_args)
+    configure_quantization(config, tokenizer, model_args, init_kwargs)
     model = None
     lazy_load = False
     init_kwargs["config"] = config
